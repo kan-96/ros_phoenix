@@ -87,6 +87,9 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 
+# K-Nguyen 2/10/23
+find_package(rclcpp_lifecycle REQUIRED)
+
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/MotorControl.msg"
   "msg/MotorStatus.msg"
@@ -162,6 +165,26 @@ install(
 )
 
 # Install launch files.
+# K-Nguyen 2/10/23
+install(
+  DIRECTORY description/launch description/ros2_control description/urdf description/rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  DIRECTORY bringup/launch bringup/config
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# install(TARGETS ${PROJECT_NAME}
+#   EXPORT export_ros_phoenix
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION bin
+# )
+
+# /////////////////////////////////////
+
 install(DIRECTORY
   launch
   DESTINATION share/${PROJECT_NAME}
@@ -178,9 +201,12 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+## EXPORT
 ament_export_include_directories(
   include/
 )
+# ament_export_targets(export_ros_phoenix HAS_LIBRARY_TARGET)
+
 ament_export_libraries(
   ${PROJECT_NAME}_components ${PROJECT_NAME}_control
 )
