@@ -12,7 +12,7 @@
 
   <!-- Import diffbot ros2_control description -->
   <!-- <xacro:include filename="$(find diffdrive_arduino)/ros2_control/diffbot.ros2_control.xacro" /> -->
-  <xacro:include filename="$(find ros_phoenix)/ros2_control/diffbot.ros2_control.xacro" />
+  <xacro:include filename="$(find ros_phoenix)/ros2_control/phoenix_bridge_example.ros2_control.xacro" />
 
   <xacro:diffbot prefix="$(arg prefix)" />
 
