@@ -18,3 +18,7 @@ K Nguyen	2/3/2024		- git clone https://github.com/kan-96/ros_phoenix.git
 						- phoenix_bridge.hpp
 						- phoenix_bridge.cpp
 						- phoenix_system.cpp
+K-Nguyen	2/22/2024	-Need to remap the Velocity and percent_ouput, because the driver only take the percent_ouput
+						- updated phonenix_bridge.hpp, swap value of VELOCITY & PERCENT_OUTPUT
+						- Set the new value for mode 0 from 0 to 1
+						- need to test "analog_input" to True

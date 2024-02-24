@@ -62,13 +62,16 @@ public:
         BaseNode::set(control_msg);
 
         ControlMode mode = static_cast<ControlMode>(control_msg->mode);
+        // if (mode == ControlMode::Velocity) {
+        //     // CTRE library expects velocity in units/100ms
+        //     this->controller_->Set(mode, control_msg->value / 10.0 / this->sensor_multiplier_);
         if (mode == ControlMode::Velocity) {
             // CTRE library expects velocity in units/100ms
-            this->controller_->Set(mode, control_msg->value / 10.0 / this->sensor_multiplier_);
+            this->controller_->Set(mode, control_msg->value);
         } else if (mode == ControlMode::Position) {
             this->controller_->Set(mode, control_msg->value / this->sensor_multiplier_);
         } else if (mode == ControlMode::PercentOutput || mode == ControlMode::Disabled) {
-            this->controller_->Set(mode, control_msg->value);
+            this->controller_->Set(mode, control_msg->value/66);
         } else {
             this->controller_->Set(ControlMode::Disabled, 0.0);
             RCLCPP_WARN(this->get_logger(), "Invalid control mode: %d", mode);
