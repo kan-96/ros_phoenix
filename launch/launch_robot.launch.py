@@ -44,23 +44,14 @@ def generate_launch_description():
             ComposableNode(
                 package="ros_phoenix",
                 plugin="ros_phoenix::TalonSRX",
-                name="left_wheel_joint",
-                parameters=[{"id": 1}, 
-                            {"P": 0.95}, 
-                            {"I": 3.0}, 
-                            {"D":0.0},
-                            {"edges_per_rot":4096}],
+                name="front_left",
+                parameters=[{"id": 1}],
             ),
             ComposableNode(
                 package="ros_phoenix",
                 plugin="ros_phoenix::TalonSRX",
-                name="right_wheel_joint",
-                parameters=[{"id": 3},
-                            {"P": 1.0}, 
-                            {"I": 0.9}, 
-                            {"D":0.02},
-                            {"sensor_multiplier":-0.8},
-                            {"edges_per_rot":4096}],
+                name="front_right",
+                parameters=[{"id": 3}],
             ),
         ],
         condition=IfCondition(LaunchConfiguration('use_container')),
@@ -77,7 +68,6 @@ def generate_launch_description():
                 [FindPackageShare("ros_phoenix"), "urdf", "diffbot.urdf.xacro"]
             ),
             " ",
-            
         ]
     )
     #Get robot description file
@@ -92,7 +82,9 @@ def generate_launch_description():
         ]
     )
 
-
+    rviz_config_file = PathJoinSubstitution(
+        [FindPackageShare("ros_phoenix"), "rviz", "diffbot.rviz"]
+    )
     control_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
@@ -110,9 +102,6 @@ def generate_launch_description():
     )
 
     # Conditionally include the container based on the value of the use_rviz argument
-    rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("ros_phoenix"), "rviz", "diffbot.rviz"]
-    )
     use_rviz_arg =DeclareLaunchArgument(
         'use_rviz',
         default_value='false',

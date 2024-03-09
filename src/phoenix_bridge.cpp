@@ -34,7 +34,7 @@ PhoenixBridge::InterfaceType PhoenixBridge::str_to_interface(const std::string& 
 
     } else if (str == hardware_interface::HW_IF_VELOCITY) {
         return InterfaceType::VELOCITY;
-
+        // return InterfaceType::PERCENT_OUTPUT;
     } else {
         return InterfaceType::INVALID;
     }

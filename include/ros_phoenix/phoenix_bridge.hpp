@@ -68,9 +68,9 @@ public:
 private:
     enum InterfaceType {
         INVALID = -1,
-        PERCENT_OUTPUT = 2,
+        PERCENT_OUTPUT = 0,
         POSITION = 1,
-        VELOCITY = 0,
+        VELOCITY = 2,
     };
 
     static InterfaceType str_to_interface(const std::string& str);
