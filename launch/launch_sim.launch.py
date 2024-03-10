@@ -34,6 +34,7 @@ def generate_launch_description():
     )
     gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
     
+    config_husky_ekf = os.path.join(get_package_share_directory(package_name), 'config', 'localization.yaml')
      
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("ros_phoenix"), "rviz", "gz_simulation.rviz"]
@@ -86,6 +87,14 @@ def generate_launch_description():
             on_exit=[rviz_node],
         )
     )
+      # Start robot localization using an Extended Kalman filter
+    start_robot_localization_cmd = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[config_husky_ekf,  {'use_sim_time': True}],
+    )
 
     # Launch them all!
     return LaunchDescription([
@@ -96,4 +105,5 @@ def generate_launch_description():
         joint_broad_spawner,
         use_rviz_arg,
         delay_rviz_after_joint_state_broadcaster_spawner,
+        start_robot_localization_cmd,
     ])

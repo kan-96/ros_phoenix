@@ -16,7 +16,7 @@ from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
 def generate_launch_description():
     channel_type =  LaunchConfiguration('channel_type', default='serial')
-    serial_port = LaunchConfiguration('serial_port', default='/dev/ttyUSB0')
+    serial_port = LaunchConfiguration('serial_port', default='/dev/serial/by-path/pci-0000:00:14.0-usb-0:4.3:1.0-port0')
     serial_baudrate = LaunchConfiguration('serial_baudrate', default='115200')
     frame_id = LaunchConfiguration('frame_id', default='laser_frame')
     inverted = LaunchConfiguration('inverted', default='false')
