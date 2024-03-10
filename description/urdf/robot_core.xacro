@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
-    <!-- the copy of robot_core_1 urdf -->
-    <xacro:macro name="diffbot" params="prefix">
+
     <xacro:include filename="inertial_macros.xacro"/>
-    <xacro:include filename="lidar.xacro" />
-    <xacro:include filename="depth_camera.xacro"/>
     
     <xacro:property name="chassis_length" value="1.3501" />
     <xacro:property name="chassis_to_base_link" value="0.73595" />
@@ -23,6 +20,27 @@
     <xacro:property name="wheel_offset_z" value="0.1778" />
     <xacro:property name="caster_wheel_mass" value="0.01"/>
 
+    
+    
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
 
     <!-- BASE LINK -->
 
@@ -42,13 +60,7 @@
     <link name="base_footprint">
     </link>
     
-    <joint name="imu_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="imu_link" />
-        <origin xyz="0 0 0" rpy="0 0 0" />
-    </joint>
-
-    <link name="imu_link" />
+    
     
     <!-- CHASSIS LONG BASE LEFT -->
     <!-- Needs to be 1.35m long, to the left by 0.2604m -->
@@ -540,7 +552,5 @@
         <mu1 value="0.001"/>
         <mu2 value="0.001"/>
     </gazebo>
-
-    </xacro:macro>  
      
 </robot>
