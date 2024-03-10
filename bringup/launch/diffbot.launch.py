@@ -112,7 +112,7 @@ def generate_launch_description():
 
     # Conditionally include the container based on the value of the use_rviz argument
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("ros_phoenix"), "rviz", "diffbot.rviz"]
+        [FindPackageShare("ros_phoenix"), "rviz", "gz_simulation.rviz"]
     )
     use_rviz_arg =DeclareLaunchArgument(
         'use_rviz',
