@@ -34,6 +34,14 @@ def generate_launch_description():
     )
     gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
     
+    twist_mux_params = os.path.join(get_package_share_directory(package_name),'config','twist_mux.yaml')
+    
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[twist_mux_params, {'use_sim_time': True}],
+            remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel_unstamped')]
+        )
     config_husky_ekf = os.path.join(get_package_share_directory(package_name), 'config', 'localization.yaml')
      
     rviz_config_file = PathJoinSubstitution(
@@ -54,6 +62,12 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('use_rviz')),
         arguments=["-d", rviz_config_file],
     )
+    pose = {'x': LaunchConfiguration('x_pose', default='0.05'),
+            'y': LaunchConfiguration('y_pose', default='0.00'),
+            'z': LaunchConfiguration('z_pose', default='0.00'),
+            'R': LaunchConfiguration('roll', default='0.00'),
+            'P': LaunchConfiguration('pitch', default='0.00'),
+            'Y': LaunchConfiguration('yaw', default='0.00')}
     # Include the Gazebo launch file, provided by the gazebo_ros package
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -64,7 +78,9 @@ def generate_launch_description():
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'my_bot'],
+                                   '-entity', 'my_bot',
+                                    '-x', pose['x'], '-y', pose['y'], '-z', pose['z'],
+                                    '-R', pose['R'], '-P', pose['P'], '-Y', pose['Y']],
                         output='screen')
 
 
@@ -100,6 +116,7 @@ def generate_launch_description():
     return LaunchDescription([
         rsp,
         gazebo,
+        twist_mux,
         spawn_entity,
         diff_drive_spawner,
         joint_broad_spawner,

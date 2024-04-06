@@ -416,7 +416,7 @@
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel"/>
-        <origin xyz="${front_wheel_offset_x} -${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
+        <origin xyz="${front_wheel_offset_x} ${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
         <axis xyz="0 0 1"/>
     </joint>
 
@@ -431,6 +431,15 @@
             <geometry>
                 <sphere radius="${wheel_radius}"/>
             </geometry>
+            <surface>
+                <friction>
+                    <torsional>
+                        <coefficient>=0.5</coefficient>
+                        <use_patch_radius>false</use_patch_radius>
+                        <surface_radius>${wheel_radius}</surface_radius>
+                    </torsional>
+                </friction>
+            </surface>
         </collision>
         <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -449,7 +458,7 @@
     <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
-        <origin xyz="${front_wheel_offset_x} ${wheel_offset_y} 0" rpy="${pi/2} 0 0" />
+        <origin xyz="${front_wheel_offset_x} -${wheel_offset_y} 0" rpy="${pi/2} 0 0" />
         <axis xyz="0 0 -1"/>
     </joint>
 
@@ -464,6 +473,15 @@
             <geometry>
                 <sphere radius="${wheel_radius}"/>
             </geometry>
+            <surface>
+                <friction>
+                    <torsional>
+                        <coefficient>0.5</coefficient>
+                        <use_patch_radius>false</use_patch_radius>
+                        <surface_radius>${wheel_radius}</surface_radius>
+                    </torsional>
+                </friction>
+            </surface>
         </collision>
         <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -477,7 +495,7 @@
     
     <!-- BACK LEFT WHEEL LINK -->
 
-    <joint name="back_left_wheel_joint" type="fixed">
+    <joint name="back_left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="back_left_wheel"/>
         <origin xyz="-${back_wheel_offset_x} -${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
@@ -495,6 +513,11 @@
             <geometry>
                 <sphere radius="${wheel_radius}"/>
             </geometry>
+            <torsional>
+                <coefficient>0.5</coefficient>
+                <use_patch_radius>false</use_patch_radius>
+                <surface_radius>${wheel_radius}</surface_radius>
+            </torsional>
         </collision>
         <xacro:inertial_cylinder mass="${caster_wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -511,7 +534,7 @@
     
     <!-- BACK RIGHT WHEEL LINK -->
 
-    <joint name="back_right_wheel_joint" type="fixed">
+    <joint name="back_right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="back_right_wheel"/>
         <origin xyz="-${back_wheel_offset_x} ${wheel_offset_y} 0" rpy="${pi/2} 0 0" />
@@ -529,6 +552,11 @@
             <geometry>
                 <sphere radius="${wheel_radius}"/>
             </geometry>
+            <torsional>
+                <coefficient>0.5</coefficient>
+                <use_patch_radius>false</use_patch_radius>
+                <surface_radius>${wheel_radius}</surface_radius>
+            </torsional>
         </collision>
         <xacro:inertial_cylinder mass="${caster_wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0"/>

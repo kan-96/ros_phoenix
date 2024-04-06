@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os
+from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.actions import RegisterEventHandler
@@ -68,6 +70,14 @@ def generate_launch_description():
         output="screen",
         
     )
+    twist_mux_params = os.path.join(get_package_share_directory('ros_phoenix'),'config','twist_mux.yaml')
+    
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[twist_mux_params, {'use_sim_time': False}],
+            remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel_unstamped')]
+        )
 
     # Get URDF via xacro
     robot_description_content = Command(
@@ -156,16 +166,27 @@ def generate_launch_description():
             on_exit=[robot_controller_spawner],
         )
     )
+    config_husky_ekf = os.path.join(get_package_share_directory('ros_phoenix'), 'config', 'localization.yaml')
+          # Start robot localization using an Extended Kalman filter
+    start_robot_localization_cmd = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[config_husky_ekf,  {'use_sim_time': False}],
+    )
 
     nodes = [
         use_rviz_arg,
         use_container_arg,
+        twist_mux,
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         container,
+        start_robot_localization_cmd,
 
     ]
 
