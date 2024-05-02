@@ -4,8 +4,8 @@
   <xacro:arg name="prefix" default="" />
   <xacro:arg name="sim_mode" default="false"/>
   <!-- <xacro:include filename="$(find diffdrive_arduino)/urdf/diffbot_description.urdf.xacro" /> -->
-  <xacro:include filename="$(find ros_phoenix)/urdf/diffbot_description.urdf.xacro" />
-  <!-- <xacro:include filename="$(find ros_phoenix)/urdf/robot_core.urdf.xacro" /> -->
+  <!-- <xacro:include filename="$(find ros_phoenix)/urdf/diffbot_description.urdf.xacro" /> -->
+  <xacro:include filename="$(find ros_phoenix)/urdf/robot_core.urdf.xacro" />
 
 
   <!-- Import Rviz colors -->

@@ -45,7 +45,7 @@ def generate_launch_description():
     config_husky_ekf = os.path.join(get_package_share_directory(package_name), 'config', 'localization.yaml')
      
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("ros_phoenix"), "rviz", "gz_simulation.rviz"]
+        [FindPackageShare("ros_phoenix"), "rviz", "gz_slam_nav2_simulation.rviz"]
     )
     
     use_rviz_arg =DeclareLaunchArgument(

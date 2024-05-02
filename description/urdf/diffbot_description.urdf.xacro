@@ -434,7 +434,7 @@
             <surface>
                 <friction>
                     <torsional>
-                        <coefficient>=0.5</coefficient>
+                        <coefficient>1.0</coefficient>
                         <use_patch_radius>false</use_patch_radius>
                         <surface_radius>${wheel_radius}</surface_radius>
                     </torsional>
@@ -476,7 +476,7 @@
             <surface>
                 <friction>
                     <torsional>
-                        <coefficient>0.5</coefficient>
+                        <coefficient>1.0</coefficient>
                         <use_patch_radius>false</use_patch_radius>
                         <surface_radius>${wheel_radius}</surface_radius>
                     </torsional>
@@ -513,11 +513,13 @@
             <geometry>
                 <sphere radius="${wheel_radius}"/>
             </geometry>
-            <torsional>
-                <coefficient>0.5</coefficient>
-                <use_patch_radius>false</use_patch_radius>
-                <surface_radius>${wheel_radius}</surface_radius>
-            </torsional>
+            <friction>
+                <torsional>
+                    <coefficient>1.0</coefficient>
+                    <use_patch_radius>false</use_patch_radius>
+                    <surface_radius>${wheel_radius}</surface_radius>
+                </torsional>
+            </friction>
         </collision>
         <xacro:inertial_cylinder mass="${caster_wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -552,11 +554,13 @@
             <geometry>
                 <sphere radius="${wheel_radius}"/>
             </geometry>
-            <torsional>
-                <coefficient>0.5</coefficient>
-                <use_patch_radius>false</use_patch_radius>
-                <surface_radius>${wheel_radius}</surface_radius>
-            </torsional>
+            <friction>
+                <torsional>
+                    <coefficient>1.0</coefficient>
+                    <use_patch_radius>false</use_patch_radius>
+                    <surface_radius>${wheel_radius}</surface_radius>
+                </torsional>
+            </friction>
         </collision>
         <xacro:inertial_cylinder mass="${caster_wheel_mass}" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0"/>
