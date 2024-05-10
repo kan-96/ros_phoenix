@@ -167,7 +167,7 @@ install(
 # Install launch files.
 # K-Nguyen 2/10/23
 install(
-  DIRECTORY description/launch description/ros2_control description/urdf description/rviz
+  DIRECTORY description/launch description/ros2_control description/urdf description/rviz description/meshes
   DESTINATION share/${PROJECT_NAME}
 )
 

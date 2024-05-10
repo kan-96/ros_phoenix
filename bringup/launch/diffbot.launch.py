@@ -28,6 +28,14 @@ from launch_ros.substitutions import FindPackageShare
 
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
+
+from launch.substitutions import LaunchConfiguration, ThisLaunchFileDir
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch import LaunchDescription, LaunchContext
+from launch.actions import IncludeLaunchDescription, OpaqueFunction
+
+
+
 def generate_launch_description():
     # """Generate launch description with multiple components."""
     # Conditionally include the container based on the value of the use_container argument
@@ -175,7 +183,12 @@ def generate_launch_description():
         output='screen',
         parameters=[config_husky_ekf,  {'use_sim_time': False}],
     )
-
+    multi_depth_camera = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_multi_camera_launch.py']),
+        )
+    rp_lidar = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rplidar.launch.py']),
+        )
     nodes = [
         use_rviz_arg,
         use_container_arg,
@@ -187,6 +200,8 @@ def generate_launch_description():
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         container,
         start_robot_localization_cmd,
+        rp_lidar,
+        multi_depth_camera,
 
     ]
 

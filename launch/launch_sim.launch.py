@@ -62,12 +62,12 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('use_rviz')),
         arguments=["-d", rviz_config_file],
     )
-    pose = {'x': LaunchConfiguration('x_pose', default='0.05'),
-            'y': LaunchConfiguration('y_pose', default='0.00'),
+    pose = {'x': LaunchConfiguration('x_pose', default='-0.7'),
+            'y': LaunchConfiguration('y_pose', default='-0.2'),
             'z': LaunchConfiguration('z_pose', default='0.00'),
             'R': LaunchConfiguration('roll', default='0.00'),
             'P': LaunchConfiguration('pitch', default='0.00'),
-            'Y': LaunchConfiguration('yaw', default='0.00')}
+            'Y': LaunchConfiguration('yaw', default='4.75')}
     # Include the Gazebo launch file, provided by the gazebo_ros package
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(

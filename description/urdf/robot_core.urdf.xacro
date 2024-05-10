@@ -3,9 +3,9 @@
     <!-- the copy of robot_core_1 urdf -->
     <xacro:macro name="diffbot" params="prefix">
     <xacro:include filename="inertial_macros.xacro"/>
-    <!-- <xacro:include filename="lidar-3d.urdf.xacro" /> -->
     <xacro:include filename="depth_camera.xacro"/>
     <xacro:include filename="lidar.xacro"/>
+    <!-- <xacro:include filename="lidar_3d.xacro"/> -->
     
     <xacro:property name="chassis_length" value="1.3501" />
     <xacro:property name="chassis_to_base_link" value="0.4954" />
@@ -55,7 +55,7 @@
     <joint name="imu_joint" type="fixed">
         <parent link="base_link" />
         <child link="imu_link" />
-        <origin xyz="0 0 ${tower_height-profile_width +profile_height*2 + 0.06}" rpy="0 0 0" />
+        <origin xyz="0.10045 0 ${tower_height-profile_width +profile_height*2 - 0.02}" rpy="0 0 0" />
     </joint>
 
     <link name="imu_link">
@@ -713,12 +713,13 @@
         <mu2 value="0.001"/>
     </gazebo>
 
+
     <!-- DOZER -->    
     
     <joint name="Dozer_left" type="fixed">
         <parent link="base_link"/>
         <child link="doser_left"/>
-        <origin xyz="-0.597 -0.1587525 0.2" rpy="0 ${pi/5.81} 0"/>
+        <origin xyz="-0.647 -0.1587525 0.11" rpy="0 ${pi/5.81} 0"/>
         <axis xyz="1 0 0"/>
     </joint>
 
@@ -726,17 +727,17 @@
         <visual>
             <origin xyz="0 0 0"/>
             <geometry>
-                <box size="0.4153 0.005 0.307"/>
+                <box size="0.4153 0.005 0.1"/>
             </geometry>
             <material name="white"/>
         </visual>
         <collision>
             <origin xyz="0 0 0"/>
             <geometry>
-                <box size="0.4153 0.005 0.307"/>
+                <box size="0.4153 0.005 0.1"/>
             </geometry>
         </collision>
-        <xacro:inertial_box mass="49" x="0.4153" y="0.005" z="0.307">
+        <xacro:inertial_box mass="49" x="0.4153" y="0.005" z="0.1">
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
@@ -746,11 +747,10 @@
     </gazebo>
     
     
-    
     <joint name="Dozer_right" type="fixed">
         <parent link="base_link"/>
         <child link="doser_right"/>
-        <origin xyz="-0.597 0.1587525 0.2" rpy="0 ${pi/5.81} 0"/>
+        <origin xyz="-0.647 0.1587525 0.11" rpy="0 ${pi/5.81} 0"/>
         <axis xyz="1 0 0"/>
     </joint>
 
@@ -758,17 +758,17 @@
         <visual>
             <origin xyz="0 0 0"/>
             <geometry>
-                <box size="0.4153 0.005 0.307"/>
+                <box size="0.4153 0.005 0.1"/>
             </geometry>
             <material name="white"/>
         </visual>
         <collision>
             <origin xyz="0 0 0"/>
             <geometry>
-                <box size="0.4153 0.005 0.307"/>
+                <box size="0.4153 0.005 0.1"/>
             </geometry>
         </collision>
-        <xacro:inertial_box mass="49" x="0.4153" y="0.005" z="0.307">
+        <xacro:inertial_box mass="49" x="0.4153" y="0.005" z="0.1">
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
@@ -777,7 +777,7 @@
         <material>Gazebo/White</material>
     </gazebo>
    
-   
+
    
     <joint name="Dozer_back" type="fixed">
         <parent link="base_link"/>
@@ -841,6 +841,8 @@
     <gazebo reference="doser_base">
         <material>Gazebo/White</material>
     </gazebo>
+    
+  
 
     <!-- LIFTING ACTUATOR LEFT -->
     <xacro:property name="actuator_fixed_length" value="0.4575" />
@@ -908,6 +910,168 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
+
+    <gazebo reference="actuator_right">
+        <material>Gazebo/Orange</material>
+    </gazebo> 
+
+
+        
+    <!-- ELECTRICAL BOX -->
+
+    <joint name="elec_box_base" type="fixed">
+        <parent link="base_link"/>
+        <child link="elec_base"/>
+        <origin xyz="0.10045 0 0.1"/>
+    </joint>
+
+    <link name="elec_base">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.3988 0.019"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.3988 0.019"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="20" x="0.1829" y="0.3988" z="0.019">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="elec_base">
+        <material>Gazebo/White</material>
+    </gazebo>
+    
+    
+    
+    
+    <joint name="elec_box_top" type="fixed">
+        <parent link="base_link"/>
+        <child link="elec_top"/>
+        <origin xyz="0.10045 0 0.3616"/>
+    </joint>
+
+    <link name="elec_top">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.3988 0.019"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.3988 0.019"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="20" x="0.1829" y="0.3988" z="0.019">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="elec_top">
+        <material>Gazebo/White</material>
+    </gazebo>
+    
+    
+    
+    <joint name="elec_box_left" type="fixed">
+        <parent link="base_link"/>
+        <child link="elec_left"/>
+        <origin xyz="0.10045 -0.1995 0.23095"/>
+    </joint>
+
+    <link name="elec_left">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.009 0.28"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.009 0.28"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="20" x="0.1829" y="0.009" z="0.28">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="elec_left">
+        <material>Gazebo/White</material>
+    </gazebo>
+    
+    
+    
+    <joint name="elec_box_right" type="fixed">
+        <parent link="base_link"/>
+        <child link="elec_right"/>
+        <origin xyz="0.10045 0.1995 0.23095"/>
+    </joint>
+
+    <link name="elec_right">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.009 0.28"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1829 0.009 0.28"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="20" x="0.1829" y="0.009" z="0.28">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="elec_right">
+        <material>Gazebo/White</material>
+    </gazebo>
+    
+    
+    
+    <joint name="elec_box_back" type="fixed">
+        <parent link="base_link"/>
+        <child link="elec_back"/>
+        <origin xyz="0.0135 0 0.23095"/>
+    </joint>
+
+    <link name="elec_back">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.009 0.3988 0.28"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.009 0.3988 0.28"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="20" x="0.009" y="0.3988" z="0.28">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="elec_back">
+        <material>Gazebo/White</material>
+    </gazebo>
 
     <gazebo reference="actuator_right">
         <material>Gazebo/Orange</material>

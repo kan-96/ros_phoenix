@@ -30,7 +30,7 @@
     <joint name="laser_joint" type="fixed">
         <parent link="base_link"/>
         <child link="laser_frame"/>
-        <origin xyz="0 0 ${tower_height-profile_width +profile_height*2 +0.03 }" rpy="0 0 0"/>
+        <origin xyz="0.10045 0 ${tower_height-profile_width +profile_height*2 }" rpy="0 0 0"/>
     </joint>
 
     <link name="laser_frame">
@@ -57,7 +57,7 @@
 
         <sensor name="laser" type="ray">
             <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
+            <visualize>false</visualize>
             <update_rate>10</update_rate>
             <ray>
                 <scan>

@@ -29,7 +29,7 @@
     <joint name="camera_joint" type="fixed">
         <parent link="base_link"/>
         <child link="camera_link"/>
-        <origin xyz="0 0 ${tower_height-profile_width +profile_height*2}" rpy="0 0 0"/>
+        <origin xyz="0.1919 0 0.2016" rpy="0 0 0"/>
     </joint>
 
     <link name="camera_link">
@@ -55,7 +55,7 @@
     <gazebo reference="camera_link">
         <material>Gazebo/Red</material>
 
-        <sensor name="camera" type="depth">
+        <sensor name="depth_camera" type="depth">
             <pose> 0 0 0 0 0 0 </pose>
             <visualize>true</visualize>
             <update_rate>10</update_rate>

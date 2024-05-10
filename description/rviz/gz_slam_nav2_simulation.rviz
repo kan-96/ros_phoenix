@@ -262,7 +262,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /camera/image_raw
+        Value: /depth_camera_imu/image_raw
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -294,7 +294,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /camera/points
+        Value: /depth_camera_imu/points
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
