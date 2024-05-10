@@ -53,6 +53,11 @@ local_parameters = [{'name': 'camera_name1', 'default': 'depth_camera_imu', 'des
                     {'name': 'pointcloud.enable2', 'default': 'false', 'description': ''}, 
                     {'name': 'unite_imu_method1', 'default': "2", 'description': '[0-None, 1-copy, 2-linear_interpolation]'},
                     {'name': 'unite_imu_method2', 'default': "0", 'description': '[0-None, 1-copy, 2-linear_interpolation]'},
+                    {'name': 'publish_tf1', 'default': 'false', 'description': '[bool] enable/disable publishing static & dynamic TF'},
+                    {'name': 'tf_publish_rate1', 'default': '0.0', 'description': '[double] rate in Hz for publishing dynamic TF'},
+                    {'name': 'enable_sync1',                  'default': 'false', 'description': "''"},                           
+
+
                    ]
 
 def set_configurable_parameters(local_params):
@@ -76,6 +81,24 @@ def add_node_action(context : LaunchContext):
     )
     return [node]
 
+# def generate_launch_description():
+#     params1 = duplicate_params(rs_launch.configurable_parameters, '1')
+#     params2 = duplicate_params(rs_launch.configurable_parameters, '2')
+#     return LaunchDescription(
+#         rs_launch.declare_configurable_parameters(local_parameters) +
+#         rs_launch.declare_configurable_parameters(params1) + 
+#         rs_launch.declare_configurable_parameters(params2) + 
+#         [
+#         IncludeLaunchDescription(
+#             PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_launch.py']),
+#             launch_arguments=set_configurable_parameters(params1).items(),
+#         ),
+#         IncludeLaunchDescription(
+#             PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_launch.py']),
+#             launch_arguments=set_configurable_parameters(params2).items(),
+#         ),
+#         OpaqueFunction(function=add_node_action)
+#     ])
 def generate_launch_description():
     params1 = duplicate_params(rs_launch.configurable_parameters, '1')
     params2 = duplicate_params(rs_launch.configurable_parameters, '2')
@@ -87,10 +110,6 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_launch.py']),
             launch_arguments=set_configurable_parameters(params1).items(),
-        ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_launch.py']),
-            launch_arguments=set_configurable_parameters(params2).items(),
         ),
         OpaqueFunction(function=add_node_action)
     ])
