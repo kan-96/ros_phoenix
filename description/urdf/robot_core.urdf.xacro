@@ -55,7 +55,7 @@
     <joint name="imu_joint" type="fixed">
         <parent link="base_link" />
         <child link="imu_link" />
-        <origin xyz="0.10045 0 ${tower_height-profile_width +profile_height*2 - 0.02}" rpy="0 0 0" />
+        <origin xyz="0.1919 0 ${0.2016+0.03}" rpy="0 0 0" />
     </joint>
 
     <link name="imu_link">
